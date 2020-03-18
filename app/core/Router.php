@@ -6,6 +6,8 @@ class Router {
 	protected $method = 'index';
 	protected $params = [];
 	
+
+
 	function __construct () {
 		$url = $this->parseUrl();
 		
@@ -41,12 +43,14 @@ class Router {
 	
 	public function parseUrl () {
 		
+		include_once 'config.php';
+		
 		$url = filter_var($_SERVER['REQUEST_URI'], FILTER_SANITIZE_URL);
 		if(substr($url, -1) !== "/") {
 			$url = $url . "/";
 		}
 		$url = explode('/', $url);
-		return array_slice($url, 2);
+		return array_slice($url, $ROUTER_URL_SLICE_DEPTH);
 	}
 	
 }
